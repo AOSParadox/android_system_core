@@ -283,10 +283,9 @@ bool BatteryMonitor::update(void) {
             path.clear();
             path.appendFormat("%s/%s/type", POWER_SUPPLY_SYSFS_PATH, name);
             switch(readPowerSupplyType(path)) {
-            case ANDROID_POWER_SUPPLY_TYPE_AC:
-            case ANDROID_POWER_SUPPLY_TYPE_USB:
-            case ANDROID_POWER_SUPPLY_TYPE_WIRELESS:
-                // Check if any of them is online
+            case ANDROID_POWER_SUPPLY_TYPE_BATTERY:
+                break;
+            default:
                 path.clear();
                 path.appendFormat("%s/%s/online", POWER_SUPPLY_SYSFS_PATH, name);
                 if (access(path.string(), R_OK) == 0) {
@@ -336,10 +335,6 @@ bool BatteryMonitor::update(void) {
                         }
                     }
                 }
-                break;
-            case ANDROID_POWER_SUPPLY_TYPE_BATTERY:
-                break;
-            default:
                 break;
             } //switch
         } //while
