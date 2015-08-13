@@ -578,6 +578,11 @@ typedef enum {
 #define android_testLog(prio, tag) \
     (__android_log_is_loggable(prio, tag, ANDROID_LOG_VERBOSE) != 0)
 #endif
+#define android_errorWriteLog(tag, subTag) \
+    __android_log_error_write(tag, subTag, -1, NULL, 0)
+
+#define android_errorWriteWithInfoLog(tag, subTag, uid, data, dataLen) \
+    __android_log_error_write(tag, subTag, uid, data, dataLen)
 
 // TODO: remove these prototypes and their users
 #define android_writevLog(vec,num) do{}while(0)
@@ -605,6 +610,9 @@ typedef enum log_id {
 } log_id_t;
 #define sizeof_log_id_t sizeof(typeof_log_id_t)
 #define typeof_log_id_t unsigned char
+
+int __android_log_error_write(int tag, const char *subTag, int32_t uid, const char *data,
+                              uint32_t dataLen);
 
 /*
  * Use the per-tag properties "log.tag.<tagname>" to generate a runtime
