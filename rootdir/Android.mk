@@ -45,3 +45,12 @@ $(LOCAL_BUILT_MODULE): $(LOCAL_PATH)/init.environ.rc.in $(bcp_dep)
 bcp_md5 :=
 bcp_dep :=
 #######################################
+# sysinit
+include $(CLEAR_VARS)
+LOCAL_MODULE       := sysinit
+LOCAL_MODULE_TAGS  := optional eng
+LOCAL_MODULE_CLASS := ETC
+LOCAL_SRC_FILES    := sysinit
+LOCAL_MODULE_PATH  := $(TARGET_ROOT_OUT)
+include $(BUILD_PREBUILT)
+#######################################
