@@ -564,7 +564,7 @@ static char **get_block_device_symlinks(struct uevent *uevent)
         free(p);
     }
 
-    if (pdev && boot_device[0] != '\0' && strstr(device, boot_device)) {
+    if (pdev && !boot_device.empty() && strstr(device, boot_device.c_str())) {
         make_link_init(link_path, "/dev/block/bootdevice");
         is_bootdevice = 1;
     } else {
